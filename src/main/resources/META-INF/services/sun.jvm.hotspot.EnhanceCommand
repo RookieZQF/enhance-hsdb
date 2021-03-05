@@ -1,0 +1,6 @@
+sun.jvm.hotspot.ClassCommand
+sun.jvm.hotspot.TypeCommand
+sun.jvm.hotspot.MethodCommand
+sun.jvm.hotspot.ObjectVisitCommand
+sun.jvm.hotspot.StackCommand
+sun.jvm.hotspot.InstanceCommand
