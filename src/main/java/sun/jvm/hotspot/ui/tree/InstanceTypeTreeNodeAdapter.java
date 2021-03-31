@@ -86,6 +86,7 @@ public class InstanceTypeTreeNodeAdapter extends AbstractFieldTreeNodeAdapter<In
         out.println("\t" + instanceKlass.getName().asString() +  " fields array length: " + instanceKlass.getFields().length());
         out.println("\t" + instanceKlass.getName().asString() +  " Field count: " + count);
         FieldInfo fieldInfo = new FieldInfo(instanceKlass);
+        //里面存着非java字段
         for(int i = 0; i < count; i ++){
             out.print("\t\t");
             fieldInfo.getFieldAccessFlags(i).printOn(out);
