@@ -25,6 +25,8 @@ public class StackCommand implements EnhanceCommand {
 
     private Map<String, JavaThread> cache;
 
+    private static final String DETAIL_OPTION = "-d";
+
     private JavaThread getJavaThread(String threadName){
         if(cache == null){
             cache = new HashMap<>(16);
@@ -41,14 +43,19 @@ public class StackCommand implements EnhanceCommand {
     @Override
     public CommandProcessor.Command getCommand(CommandProcessor commandProcessor, final PrintStream out, final PrintStream err,
                                                CommandProcessor.DebuggerInterface debugger) {
-        return commandProcessor.new Command(getName(), getName() + " threadName", false) {
+        return commandProcessor.new Command(getName(), getName() + " [" + DETAIL_OPTION + "] threadName", false) {
 
             @Override
             void doit(CommandProcessor.Tokens t) {
-                if (t.countTokens() != 1) {
+                if (t.countTokens() > 2) {
                     this.usage();
                 } else {
                     String threadName = t.nextToken();
+                    boolean isDetail = false;
+                    if(DETAIL_OPTION.equals(threadName)){
+                        isDetail = true;
+                        threadName = t.nextToken();
+                    }
                     JavaThread thread = getJavaThread(threadName);
                     if(thread == null){
                         err.println("thread " + threadName + " is not exist");
@@ -113,17 +120,18 @@ public class StackCommand implements EnhanceCommand {
                         }
                         buf.append(")");
                         out.println(buf);
-
-                        StackValueCollection locals;
-                        StackValueCollection expressions = null;
-                        if(vf.isCompiledFrame()){
-                            locals = getCompiledLocals(new ExtCompiledVFrame((CompiledVFrame)vf));
-                        } else{
-                            locals = getInterpretedLocals((InterpretedVFrame)vf);
-                            expressions = getInterpretedExpressions((InterpretedVFrame)vf);
+                        if(isDetail) {
+                            StackValueCollection locals;
+                            StackValueCollection expressions = null;
+                            if (vf.isCompiledFrame()) {
+                                locals = getCompiledLocals(new ExtCompiledVFrame((CompiledVFrame) vf));
+                            } else {
+                                locals = getInterpretedLocals((InterpretedVFrame) vf);
+                                expressions = getInterpretedExpressions((InterpretedVFrame) vf);
+                            }
+                            print(locals, out, true);
+                            print(expressions, out, false);
                         }
-                        print(locals, out, true);
-                        print(expressions, out, false);
                     }
                 }
             }
