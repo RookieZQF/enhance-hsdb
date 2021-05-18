@@ -5,3 +5,4 @@ sun.jvm.hotspot.ObjectVisitCommand
 sun.jvm.hotspot.StackCommand
 sun.jvm.hotspot.InstanceCommand
 sun.jvm.hotspot.CodeCacheCommand
+sun.jvm.hotspot.NMethodCommand

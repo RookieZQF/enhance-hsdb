@@ -33,7 +33,7 @@ public class MethodCommand implements EnhanceCommand {
                         return ;
                     }
                     Method method = new Method(a);
-                    out.println(MethodUtil.getMethodSign(method) + " @ " + a);
+                    out.println(method.getMethodHolder().getName().asString() + " " + MethodUtil.getMethodSign(method) + " @ " + a);
 
                     MethodTypeTreeNodeAdapter node = new MethodTypeTreeNodeAdapter(method.getAddress(), type, null);
                     PrintUtil.printNode(node, method, out);
