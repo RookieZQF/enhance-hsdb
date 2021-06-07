@@ -47,7 +47,7 @@ public class StackCommand implements EnhanceCommand {
 
             @Override
             void doit(CommandProcessor.Tokens t) {
-                if (t.countTokens() > 2) {
+                if (t.countTokens() < 1) {
                     this.usage();
                 } else {
                     String threadName = t.nextToken();
@@ -55,6 +55,9 @@ public class StackCommand implements EnhanceCommand {
                     if(DETAIL_OPTION.equals(threadName)){
                         isDetail = true;
                         threadName = t.nextToken();
+                    }
+                    while(t.hasMoreTokens()){
+                        threadName = threadName + " " + t.nextToken();
                     }
                     JavaThread thread = getJavaThread(threadName);
                     if(thread == null){
