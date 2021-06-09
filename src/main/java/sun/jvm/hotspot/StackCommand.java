@@ -64,7 +64,7 @@ public class StackCommand implements EnhanceCommand {
                         err.println("thread " + threadName + " is not exist");
                         return ;
                     }
-
+                    out.println("JavaThread:" + thread.getAddress());
                     sun.jvm.hotspot.runtime.Frame tmpFrame = thread.getCurrentFrameGuess();
                     if (tmpFrame != null ) {
                         Address sp = tmpFrame.getSP();
