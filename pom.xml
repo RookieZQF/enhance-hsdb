@@ -30,7 +30,7 @@
     <dependency>
       <groupId>com.perfma.xbox</groupId>
       <artifactId>xbox-sdk</artifactId>
-      <version>1.1.1-RELEASE</version>
+      <version>1.2.0-RELEASE</version>
     </dependency>
   </dependencies>
 

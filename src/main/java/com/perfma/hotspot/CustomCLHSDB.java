@@ -45,6 +45,7 @@ public class CustomCLHSDB {
                 ucp.set(classLoader, path);
             }catch (Throwable e){
                 System.err.println("ERROR : load sa-jdi.jar exception : " + hsdbPath);
+                e.printStackTrace();
                 return ;
             }
         } else {
